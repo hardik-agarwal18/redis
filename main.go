@@ -16,6 +16,10 @@ func (s *Store) Set(key string, value string) {
 	s.data[key] = value
 }
 
+func (s *Store) Delete(key string) {
+	delete(s.data, key)
+}
+
 func NewStore() *Store {
 	return &Store{
 		data: make(map[string]string),
@@ -30,5 +34,8 @@ func main() {
 	val, _ := s.Get("a")
 
 	fmt.Println("Hello")
+	fmt.Println(s.data)
+	s.Delete("b")
+	fmt.Println(s.data)
 	fmt.Println(val)
 }
