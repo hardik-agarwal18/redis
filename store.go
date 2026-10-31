@@ -39,3 +39,25 @@ func (s *Store) Set(key string, value string) {
 func (s *Store) Delete(key string) {
 	delete(s.data, key)
 }
+
+func (s *Store) Len() int {
+	return len(s.data)
+}
+
+func (s *Store) Rename(oldKey, newKey string) {
+	if oldKey == newKey {
+		return
+	}
+
+	if val, ok := s.Get(oldKey); ok {
+		s.Set(newKey, val)
+		s.Delete(oldKey)
+	}
+}
+func (s *Store) Pop(key string) (string, bool) {
+	if val, ok := s.Get(key); ok {
+		s.Delete(key)
+		return val, ok
+	}
+	return "", false
+}
